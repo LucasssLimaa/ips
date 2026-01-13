@@ -41,11 +41,10 @@ function saveTransaction() {
     const description = document.getElementById('input_description')?.value;
     const amountVal = document.getElementById('input_amount')?.value;
     const dateValue = document.getElementById('input_due_date')?.value;
-    const status = document.getElementById('input_status')?.value || 'Pendente';
     const flow = document.getElementById('input_flow')?.value;
     const category = document.getElementById('input_category')?.value;
     //revisar esta parte
-    const isIncome = flow === "income";
+    const status = document.getElementById('input_status')?.value;
 
     // Validação de preenchimento
     if (!description || !amountVal || !dateValue) {
@@ -53,40 +52,44 @@ function saveTransaction() {
         return;
     }
 
+    const isIncome = flow === "income";
     const type = isIncome ? 'income' : 'expense';
-
     // Converter texto para número
     const amount = parseFloat(amountVal);
+    const userPaid = status === 'yes';
+
+    //calculo das datas
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const itemDate = new Date(dateValue);
 
     // 3. DEFINIR O SINAL
-    let displayAmount = "";
-    if (flow === "Despesa") {
-        displayAmount = "- € " + amount.toFixed(2);
-    } else {
-        displayAmount = "+ € " + amount.toFixed(2);
-    }
+    const symbol = isIncome ? "+ € " : "- € ";
+    const displayAmount = symbol + amount.toFixed(2);
 
     // 4. DEFINIR CLASSES (Corrigido o switch e a variável)
     let boxClass = "";
     let badgeClass = "";
-    let statusLabel = status; // Corrigido o nome da variável
+    let statusLabel = ""; 
 
-    switch (status) {
-        case 'Pago':
-            boxClass = "box_paid";
-            badgeClass = "status_paid";
-            break;
-        case 'Atrasado':
+    if(userPaid) {
+        boxClass = "box_paid";
+        badgeClass = "status_paid";
+        statusLabel = isIncome ? "RECEBIDO" : "PAGO"
+    } else {
+       if (itemDate < today) {
+            // Data é passado = Atrasado
             boxClass = "box_late";
             badgeClass = "status_late";
-            break;
-        case 'Pendente':
-            boxClass = "box_pending";
+            statusLabel = "ATRASADO";
+        } else {
+            // Data é futuro = Agendado
+            // Se for receita usa azul, despesa usa amarelo
+            boxClass = "box_pending"; 
             badgeClass = "status_pending";
-            break; // Adicionado o break que faltava
-        default:
-            boxClass = "";
-            badgeClass = "";
+            statusLabel = "PENDENTE";
+        }
     }
 
     // 5. FORMATAR DATA
@@ -119,7 +122,7 @@ function saveTransaction() {
                             <p><strong>Categoria:</strong> ${category}</p>
                             <div id="buttons_box">
                                 <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
-                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                                ${!userPaid ? `<button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>` : ''}                               
                             </div>
                         </div>
                     </div>`;
@@ -137,23 +140,20 @@ function saveTransaction() {
         const reportsContainer = document.getElementById('reports_container');
         reportsContainer.insertAdjacentHTML('afterbegin', newTransactionHTML);
     }
-    description.value = '';
-    amount.value = '';
 
-    // Segundo: Força a aba correta (Despesa ou Faturamento)
-    // O setTimeout dá um tempo para a tela carregar antes de clicar na aba
-    setTimeout(() => {
-        // Encontra o botão da aba baseado no tipo que acabamos de salvar
-        // type é 'income' ou 'expense'
-        const tabBtn = document.querySelector(`.tab_btn[onclick*="${type}"]`);
-
-        if (tabBtn) {
-            // Clica no botão para filtrar a lista e atualizar o saldo
-            switchTab(type, tabBtn);
-        }
-    }, 50); // 50ms de espera
+    document.getElementById('input_description').value = '';
+    document.getElementById('input_amount').value = '';
+    document.getElementById('input_due_date').value = '';
 
     changeTab('reports');
+
+    const correctTabBtn = document.querySelector(`.tab_btn[onclick*="${type}"]`);
+
+    if (correctTabBtn) {
+        switchTab(type, correctTabBtn);
+    }
+    updateTotals();
+    updateChart();
 }
 
 function toggleCard(selectedElement) {
@@ -171,6 +171,8 @@ function delete_card(card_btn) {
     let card = card_btn.closest('.report_box');
 
     card.remove();
+    updateTotals();
+    updateChart();
 }
 
 function pay_card(card_btn) {
@@ -206,6 +208,8 @@ function pay_card(card_btn) {
 
     // Opcional: Fechar o card automaticamente após pagar
     // card.classList.remove('expanded');
+    updateTotals();
+    updateChart();
 }
 
 function switchTab(type, clickedButton) {
@@ -230,3 +234,160 @@ function switchTab(type, clickedButton) {
         }
     })
 }
+
+function updateTotals() {
+    let saldoAtual = 0;
+    let aReceber = 0;
+    let aPagar = 0;
+
+    const allItems = document.querySelectorAll('.report_box');
+
+    allItems.forEach(item => {
+        // 1. Limpar valor
+        const textVal = item.querySelector('.text_value').innerText;
+        let valor = parseFloat(textVal.replace(/[^\d,-]/g, '').replace(',', '.'));
+        valor = Math.abs(valor);
+
+        // 2. Pegar Tipo e Texto
+        const type = item.getAttribute('data-type'); // 'income' ou 'expense'
+        // Pegamos o texto e forçamos maiúsculas para garantir que 'Pago' vira 'PAGO'
+        const badgeText = item.querySelector('.badge').innerText.toUpperCase(); 
+
+        // --- A CORREÇÃO ESTÁ AQUI ---
+
+        // CENÁRIO 1: JÁ FOI CONCRETIZADO (A etiqueta diz PAGO)
+        if (badgeText === "PAGO") {
+            if (type === 'income') {
+                saldoAtual += valor; // Dinheiro entrou no caixa
+            } else {
+                saldoAtual -= valor; // Dinheiro saiu do caixa
+            }
+        }
+        
+        // CENÁRIO 2: ESTÁ EM ABERTO (Atrasado, Pendente, Agendado...)
+        // Qualquer coisa que não seja "PAGO" cai aqui
+        else {
+            if (type === 'income') {
+                // Ex: "Atrasado" no Faturamento -> Vai para A Receber
+                aReceber += valor;
+            } else {
+                // Ex: "Atrasado" na Despesa -> Vai para A Pagar
+                aPagar += valor;
+            }
+        }
+    });
+
+    // 3. Atualizar na Tela
+    const formatoPT = { style: 'currency', currency: 'EUR' };
+
+    // Verifica se os elementos existem antes de atualizar
+    const elSaldo = document.getElementById('val_balance');
+    const elReceber = document.getElementById('val_receivable'); // Sua caixa azul
+    const elPagar = document.getElementById('val_payable');      // Sua caixa vermelha
+
+    if(elSaldo) elSaldo.innerText = saldoAtual.toLocaleString('pt-PT', formatoPT);
+    if(elReceber) elReceber.innerText = aReceber.toLocaleString('pt-PT', formatoPT);
+    if(elPagar) elPagar.innerText = aPagar.toLocaleString('pt-PT', formatoPT);
+}
+
+function updateChart() {
+    const ctx = document.getElementById('myChart');
+    if (!ctx) return;
+
+    // 1. EXTRAIR DADOS DO HTML
+    // Pegamos todos os cards e invertemos (do antigo para o novo)
+    const cards = Array.from(document.querySelectorAll('.report_box')).reverse();
+
+    let labels = [];
+    let dataPoints = [];
+    let currentBalance = 0; // Começa do zero e vai acumulando
+
+    // Se quiser que o gráfico comece num dia específico, adicione lógica aqui
+    // Por agora, ele reconstrói a história desde o primeiro lançamento
+    
+    cards.forEach(card => {
+        // Pega Data
+        const dateText = card.querySelector('.text_secondary').innerText.split(',')[0];
+        
+        // Pega Valor
+        const valText = card.querySelector('.text_value').innerText;
+        let val = parseFloat(valText.replace(/[^\d,-]/g, '').replace(',', '.'));
+        val = Math.abs(val);
+
+        // Pega Tipo
+        const type = card.getAttribute('data-type');
+        
+        // --- A GRANDE MUDANÇA ESTÁ AQUI ---
+        // Removemos o IF que bloqueava os pendentes.
+        // Agora somamos TUDO, seja pago ou agendado.
+        
+        if (type === 'income') {
+            currentBalance += val;
+        } else {
+            currentBalance -= val;
+        }
+
+        labels.push(dateText);
+        dataPoints.push(currentBalance);
+    });
+
+    // 2. CONFIGURAR O GRÁFICO
+    if (financeChart) {
+        financeChart.destroy();
+    }
+
+    financeChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Fluxo Projetado', // Mudei o nome para Projetado
+                data: dataPoints,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 3,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#3b82f6'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return "Saldo: € " + context.raw.toLocaleString('pt-PT', {minimumFractionDigits: 2});
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { grid: { display: false } },
+                y: { 
+                    beginAtZero: false, // Permite mostrar saldo negativo se houver
+                    grid: { color: '#f1f5f9' }
+                }
+            }
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateTotals();
+});
+// Variável global para guardar o gráfico (para podermos atualizar depois)
+let financeChart = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateTotals();
+    updateChart(); // <--- Adicione aqui
+});
