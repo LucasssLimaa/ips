@@ -55,16 +55,16 @@ function saveTransaction() {
     const status = statusEl.value;
     const flow = flowEl.value;
     const category = categoryEl.value;
-
     //revisar esta parte
-    const isIncome = document.getElementById('input_flow').checked;
-    const type = isIncome ? 'income' : 'expense';
+    const isIncome = flow === "income";
 
     // Validação de preenchimento
     if (!description || !amountVal || !dateValue) {
-        alert("Por favor, preencha a descrição, valor e data");
+        alert("Por favor, preencha todos os capos");
         return;
     }
+
+    const type = isIncome ? 'income' : 'expense';
 
     // Converter texto para número
     const amount = parseFloat(amountVal);
@@ -108,7 +108,7 @@ function saveTransaction() {
     });
 
     // 6. CRIAR HTML
-    const newTransactionHTML = `<div class="report_box ${boxClass} data-type="${type}">
+    const newTransactionHTML = `<div class="report_box ${boxClass}" data-type="${type}">
                         <div class="box_header" onclick="toggleCard(this)">
                             <div class="box_column_left">
                                 <p class="text_primary">${description}</p>
