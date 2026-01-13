@@ -39,30 +39,48 @@
         <div id="main">
             <div id="value_boxes_container">
                 <div class="value_box">
-                    <div class="box_icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <div class="box_icon total">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
-                            <line x1="2" y1="10" x2="22" y2="10"></line>
-                            <rect x="6" y="14" width="3" height="2" rx="0.5"></rect>
+                            <path d="M4 10h12" />
+                            <path d="M4 14h12" />
+                            <path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" />
                         </svg>
                     </div>
                     <div class="box_info">
-                        <p class="label">Total:</p>
-                        <p class="total_cash">€12.000,00</p>
+                        <p class="label">Valor em Caixa:</p>
+                        <p class="total_cash" id="val_balance">€12.000,00</p>
                     </div>
                 </div>
-                <div class="value_box">
-                    <div class="box_icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
+
+                <div id="pending_boxes">
+                    <div class="value_box">
+                        <div class="box_icon payable">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="2" y1="10" x2="22" y2="10"></line>
+                                <rect x="6" y="14" width="3" height="2" rx="0.5"></rect>
+                            </svg>
+                        </div>
+                        <div class="box_info">
+                            <p class="label">Valor a Pagar:</p>
+                            <p class="total_cash" id="val_payable">€12.000,00</p>
+                        </div>
                     </div>
-                    <div class="box_info">
-                        <p class="label">Pendente:</p>
-                        <p class="total_cash">€12.000,00</p>
+                    
+                    <div class="value_box">
+                        <div class="box_icon receivable">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="box_info">
+                            <p class="label">Valor a Receber:</p>
+                            <p class="total_cash" id="val_receivable">€12.000,00</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,20 +88,7 @@
                 <div id="balance_box_container">
                     <h3>Fluxo de Caixa Acumulado</h3>
                     <div id="balance_box">
-                        <svg viewBox="0 0 300 100" preserveAspectRatio="none" style="width: 100%; height: 100%;">
-                            <defs>
-                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#1A73E8" stop-opacity="0.2" />
-                                    <stop offset="100%" stop-color="#1A73E8" stop-opacity="0" />
-                                </linearGradient>
-                            </defs>
-
-                            <path d="M0,80 Q50,70 100,50 T200,30 T300,10 L300,100 L0,100 Z"
-                                fill="url(#chartGradient)" />
-
-                            <path d="M0,80 Q50,70 100,50 T200,30 T300,10" fill="none" stroke="#1A73E8" stroke-width="3"
-                                stroke-linecap="round" />
-                        </svg>
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -92,9 +97,8 @@
                     <div class="input_box status">
                         <label for="status">Status</label>
                         <select id="input_status" name="status">
-                            <option value="Pago">Pago</option>
-                            <option value="Pendente">Pendente</option>
-                            <option value="Atrasado">Atrasado</option>
+                            <option value="yes">Pago</option>
+                            <option value="no">Pendente</option>
                         </select>
                     </div>
                     <div class="input_box category">
@@ -145,7 +149,7 @@
                         Despesas
                     </button>
                     <button class="tab_btn" onclick="switchTab('income', this)">
-                        Faturamento
+                        Receitas
                     </button>
                 </div>
 
@@ -280,6 +284,9 @@
             </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="script.js"></script>
     <script src="script.js"></script>
 </body>
 
