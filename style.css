@@ -93,11 +93,12 @@ body {
     width: 90%;
     margin: 1.5rem auto 1rem auto;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
 
     padding-top: 1rem;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .value_box {
@@ -113,6 +114,11 @@ body {
     flex: 1;
 }
 
+#pending_boxes{
+    display: flex;
+    justify-content: space-between;
+}
+
 .box_icon {
     display: flex;
     justify-content: center;
@@ -121,8 +127,19 @@ body {
     background-color: #E8F0FE;
     border-radius: 0.4rem;
     padding: 0.6rem;
-    color: #1A73E8;
     flex-shrink: 0;
+}
+
+.box_icon.total{
+    background-color: #DCFCE7;
+}
+
+.box_icon.receivable{
+    background-color: #FEF3C7;
+}
+
+.box_icon.payable{
+    background-color: #FEE2E2;
 }
 
 .box_icon svg {
