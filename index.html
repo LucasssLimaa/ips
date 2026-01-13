@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Financeiro</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="back_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24" fill="none" stroke="#94a3b8"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="back-arrow">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </div>
+            <svg id="profile_icon" xmlns="http://www.w3.org/2000/svg" height="3rem" viewBox="0 0 40 40" fill="none"
+                class="profile-placeholder">
+                <circle cx="20" cy="20" r="20" fill="#F1F5F9" />
+
+                <g fill="#94A3B8">
+                    <circle cx="20" cy="14" r="6" />
+                    <path
+                        d="M10.5 32C10.5 26.7533 14.7533 22.5 20 22.5C25.2467 22.5 29.5 26.7533 29.5 32V34H10.5V32Z" />
+                </g>
+            </svg>
+            <H1>Escola IPS</H1>
+            <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24" fill="none" stroke="#94a3b8"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+        </div>
+        <div id="main">
+            <div id="value_boxes_container">
+                <div class="value_box">
+                    <div class="box_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                            <rect x="6" y="14" width="3" height="2" rx="0.5"></rect>
+                        </svg>
+                    </div>
+                    <div class="box_info">
+                        <p class="label">Total:</p>
+                        <p class="total_cash">€12.000,00</p>
+                    </div>
+                </div>
+                <div class="value_box">
+                    <div class="box_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="box_info">
+                        <p class="label">Pendente:</p>
+                        <p class="total_cash">€12.000,00</p>
+                    </div>
+                </div>
+            </div>
+            <div id="screen_home">
+                <div id="balance_box_container">
+                    <h3>Fluxo de Caixa Acumulado</h3>
+                    <div id="balance_box">
+                        <svg viewBox="0 0 300 100" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                            <defs>
+                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#1A73E8" stop-opacity="0.2" />
+                                    <stop offset="100%" stop-color="#1A73E8" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+
+                            <path d="M0,80 Q50,70 100,50 T200,30 T300,10 L300,100 L0,100 Z"
+                                fill="url(#chartGradient)" />
+
+                            <path d="M0,80 Q50,70 100,50 T200,30 T300,10" fill="none" stroke="#1A73E8" stroke-width="3"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div id="screen_record" class="hidden_screen">
+                <div id="input_area">
+                    <div class="input_box status">
+                        <label for="status">Status</label>
+                        <select id="input_status" name="status">
+                            <option value="Pago">Pago</option>
+                            <option value="Pendente">Pendente</option>
+                            <option value="Atrasado">Atrasado</option>
+                        </select>
+                    </div>
+                    <div class="input_box category">
+                        <label for="category">Categoria</label>
+                        <select id="input_category" name="category">
+                            <option value="propina">Propina</option>
+                            <option value="alimentacao">Alimentação</option>
+                            <option value="material">Material</option>
+                            <option value="transporte">Transporte</option>
+                        </select>
+                    </div>
+                    <div class="input_box description">
+                        <p>Descrição</p>
+                        <input id="input_description" type="text" placeholder="Ex: Mensalidade de João">
+                    </div>
+                    <div class="input_box value">
+                        <p>Valor</p>
+                        <div class="currency_wrapper">
+                            <span class="currency_symbol">€</span>
+                            <input type="number" id="input_amount" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                    <div class="input_box due">
+                        <p>Data de Vencimento</p>
+                        <input id="input_due_date" type="date">
+                    </div>
+                    <div class="input_box flow">
+                        <label for="flow">Faturamento/Despesa</label>
+                        <select id="input_flow" name="flow">
+                            <option value="Faturamento">Faturamento</option>
+                            <option value="Despesa">Despesa</option>
+                        </select>
+                    </div>
+                    <div class="input_box record_toggle">
+                        <p>Adicionar outro lançamento de seguida</p>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button id="btn_save" onclick="saveTransaction()">Guardar</button>
+                </div>
+            </div>
+            <div id="screen_reports" class="hidden_screen">
+
+                <div class="tabs_wrapper">
+                    <button class="tab_btn active" onclick="switchTab('expense', this)">
+                        Despesas
+                    </button>
+                    <button class="tab_btn" onclick="switchTab('income', this)">
+                        Faturamento
+                    </button>
+                </div>
+
+                <div id="reports_container">
+
+                    <div class="list_header">
+                        <span>DESCRIÇÃO / DATA</span>
+                        <div class="col_right_header">
+                            <span>VALOR</span>
+                            <span>STATUS</span>
+                        </div>
+                    </div>
+
+                    <div class="report_box box_paid" data-type="income">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Mensalidade João da Silva</p>
+                                <p class="text_secondary">29 Dez, 10:30</p>
+                            </div>
+                        <div class="box_row_right">
+                            <div class="box_column_center">
+                                <p class="text_value">+ € 350.000,00</p>
+                            </div>
+                            <div class="box_column_right">
+                                <div class="badge status_paid">PAGO</div>
+                                <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div></div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Propina</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="report_box box_pending" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Mensalihdjsasva veifvhbqiaebvqiabeov ihadfbvuqebvdade João da Silva</p>
+                                <p class="text_secondary">29 Dez, 10:30</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">+ € 350,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_pending">PENDENTE</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Propina</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="report_box box_late" data-type="income">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Mensalidade João da Silva</p>
+                                <p class="text_secondary">29 Dez, 10:30</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">+ € 350,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_late">ATRASADO</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Propina</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="nav_item" onclick="changeTab('home')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <p>Início</p>
+            </div>
+            <div class="nav_item" onclick="changeTab('record')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <p>Lançar</p>
+            </div>
+            <div class="nav_item" onclick="changeTab('reports')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <p>Relatórios</p>
+            </div>
+            <div class="nav_item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                <p>Configurar</p>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

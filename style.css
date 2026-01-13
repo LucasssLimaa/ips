@@ -1,0 +1,743 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.hidden_screen {
+    display: none !important;
+}
+
+#container {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f7f9;
+    overflow: hidden
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 100%;
+
+    background-color: white;
+    border-radius: 0.4rem;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 0.7rem;
+    height: 4rem;
+}
+
+#header h1 {
+    font-size: clamp(1rem, 4vw, 2rem);
+}
+
+#back_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+#back_btn svg {
+    display: block;
+    margin: 0;
+}
+
+@media (hover: hover) {
+    #back_btn:hover {
+        background-color: #e2e8f0;
+        color: black;
+        border-radius: 50%;
+        transform: scale(0.92);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+}
+
+#back_btn:active {
+    transform: scale(0.85);
+    background-color: #e2e8f0 !important;
+    transition-duration: 0ms;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+}
+
+#back_btn:focus {
+    background-color: transparent;
+}
+
+#main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+#value_boxes_container {
+    width: 90%;
+    margin: 1.5rem auto 1rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding-top: 1rem;
+    gap: 1rem;
+}
+
+.value_box {
+    display: flex;
+    align-items: center;
+
+    padding: 1rem;
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 1rem;
+    gap: 0.8rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    flex: 1;
+}
+
+.box_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E8F0FE;
+    border-radius: 0.4rem;
+    padding: 0.6rem;
+    color: #1A73E8;
+    flex-shrink: 0;
+}
+
+.box_icon svg {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+#back_btn {
+    display: none;
+}
+
+.box_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 0.1rem;
+    text-align: left;
+}
+
+.box_info .label {
+    font-size: clamp(0.5rem, 4vw, 1rem);
+    color: #94a3b8;
+    font-weight: 500;
+    margin: 0;
+}
+
+.box_info .total_cash {
+    font-weight: 700;
+    color: #334155;
+    margin: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: clamp(0.8rem, 4vw, 1.5rem);
+
+}
+
+#balance_box_container {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+
+    width: 90%;
+    margin: 1.5rem auto;
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.8rem;
+    padding: 1.2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+}
+
+#balance_box_container>h3 {
+    font-size: 1.1rem;
+    color: #334155;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+#balance_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: clamp(150px, 25vh, 300px);
+    width: 100%;
+    border-radius: 0.6rem;
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(to top, #E8F0FE, #ffffff);
+    color: #60a5fa;
+    font-weight: 500;
+}
+
+#input_area {
+    display: flex;
+    flex-direction: column;
+
+    width: 90%;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+}
+
+.input_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.6rem;
+    color: #334155;
+}
+
+.input_box input,
+.input_box select {
+    background-color: white;
+    border-radius: 1rem;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 0.7rem;
+    height: 4rem;
+    width: 100%;
+    color: #334155;
+    outline: none;
+    transition: all 0.2s ease;
+
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.input_box select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+    cursor: pointer;
+}
+
+.input_box input:focus,
+.input_box select:focus {
+    border-color: #3b82f6;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.input_box p,
+label {
+    display: flex;
+    margin: 0.5rem;
+}
+
+.currency_wrapper {
+    position: relative;
+    width: 100%;
+    height: 4rem;
+}
+
+.currency_symbol {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3b82f6;
+    z-index: 10;
+}
+
+/* Ajuste no input para não escrever em cima do € */
+.currency_wrapper input {
+    width: 100%;
+    height: 100%;
+    padding-left: 2.5rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.record_toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.record_toggle p {
+    margin: 0;
+    font-size: 1rem;
+    color: #334155;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3.2rem;
+    height: 1.8rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+    border-radius: 2rem;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4rem;
+    width: 1.4rem;
+    left: 0.2rem;
+    bottom: 0.2rem;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:checked+.slider {
+    background-color: #22c55e;
+}
+
+input:checked+.slider:before {
+    transform: translateX(1.4rem);
+}
+
+#btn_save {
+    margin: auto;
+    width: 60%;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#btn_save:active {
+    transform: scale(0.96);
+    background-color: #2563eb;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.8rem;
+    padding: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin: 0;
+}
+
+.nav_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3rem;
+
+    color: #94a3b8;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 200ms;
+}
+
+.nav_item:hover {
+    background-color: #e2e8f0;
+    color: black;
+    border-radius: 50%;
+    transform: scale(0.92);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav_item:active {
+    transform: scale(0.85);
+    background-color: #e2e8f0;
+    transition-duration: 100ms;
+}
+
+.nav_item svg {
+    height: 2rem;
+    margin: 0;
+}
+
+.nav_item p {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+/* --- ESTILOS DA TELA DE RELATÓRIOS --- */
+
+#screen_reports {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Alinha no topo */
+    padding-bottom: 5rem;
+    /* Espaço para o footer não tapar o último item */
+}
+
+.tabs_wrapper {
+    display: flex;
+    
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.tab_btn{
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+    background-color: #f8fafc;
+    border: 2px solid #e2e8f0;
+    font-size: 1rem;
+}
+
+.tab_btn.active {
+    background-color: white;
+    color: #0f172a;
+    /* Preto suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Sombra leve */
+    font-weight: 700;
+}
+
+/* Container Principal da Lista */
+#reports_container {
+    width: 100%;
+    margin-top: 1.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Garante cantos arredondados */
+}
+
+/* --- Cabeçalho da Lista (Cinza) --- */
+.list_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    background-color: #f8fafc;
+    gap: 0.5rem;
+}
+
+.list_header>span:first-child {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.col_right_header {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.col_right_header span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+    margin-left: 1rem;
+    margin-right: 0.3rem;
+}
+
+
+/* --- Item da Lista (Linha) --- */
+.report_box {
+    display: flex;
+    flex-direction: column;
+    padding: 0.6rem;
+}
+
+.box_header {
+    display: flex;
+}
+
+.box_body{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: 1px solid transparent;
+    
+    transition: all 0.2s ease-in-out;
+}
+
+.report_box.expanded .box_body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* COLUNA 1: Texto e Data (Esquerda) */
+.box_column_left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-right: 3rem;
+
+    /* Mágica do Alinhamento e Truncagem (...) */
+    /*Isso funciona estranhamente bem, favor não mexer*/
+    flex: 1;
+    min-width: 0;
+}
+
+.text_primary {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #334155;
+    margin: 0;
+
+    /* Corta o texto com "..." se for grande demais */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.report_box.expanded .text_primary {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.text_secondary {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.box_row_right{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
+/* COLUNA 2: Valor (Centro) */
+.box_column_center {
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+
+.text_value {
+    font-weight: 700;
+    color: #1e293b;
+    white-space: nowrap;
+    font-size: clamp(0.7rem, 4vw, 0.95rem);
+}
+
+/* COLUNA 3: Status (Direita) */
+.box_column_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/*Gambiarra para alinhar com coluna*/
+.status_paid, .box_paid .arrow_icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0.9rem;
+}
+
+/* --- Badges (Etiquetas) --- */
+.badge {
+    font-size: clamp(0.1rem, 4vw, 0.6rem);
+    font-weight: 800;
+    padding: 0.3rem;
+    border-radius: 0.4rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Cores das Badges */
+.status_paid {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status_late {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.status_pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.report_box {
+    border-left: 5px solid transparent;
+    /* Prepara o terreno */
+    transition: all 0.3s ease;
+}
+
+.box_paid {
+    border-left-color: #22c55e;
+    background-color: #f0fdf4;
+}
+
+.box_late {
+    border-left-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.box_pending {
+    border-left-color: #eab308;
+    background-color: #fefce8;
+}
+
+.arrow_icon{   
+    height: 1.2rem;
+    color: #94a3b8;
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+.report_box.expanded .arrow_icon {
+    transform: rotate(180deg);
+    color: #3b82f6;
+}
+
+.btn_quick_pay {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    color: #22c55e;
+    border-radius: 0.6rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 2px solid green;
+    margin-right:0.3em;
+
+    transition: all 0.2s;
+}
+
+.btn_quick_pay:active {
+    background-color: #22c55e;
+    color: white;
+    transform: scale(0.9);
+}
+
+/* Esconde o botão se o card já tiver a classe 'box_paid' */
+.box_paid .btn_quick_pay {
+    display: none;
+}
+
+.btn_quick_delete {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    color: red;
+    border-radius: 0.6rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 2px solid red;
+    margin-right: 0.3em;
+
+    transition: all 0.2s;
+}
+
+.btn_quick_delete:active {
+    background-color: red;
+    color: white;
+    transform: scale(0.9);
+}
+
+input[type="date"] {
+    color: #334155;
+    font-family: sans-serif;
+    padding-right: 1rem;
+    /* Espaço para o ícone não colar na borda */
+}
+
+/* Formata o placeholder (dd/mm/aaaa) para parecer texto inativo */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    color: #94a3b8;
+}
+
+/* Pinta o ícone de calendário de azul (filtro para SVG) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(202deg) brightness(99%) contrast(93%);
+    opacity: 0.8;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
