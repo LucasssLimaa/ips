@@ -38,23 +38,12 @@ function changeTab(tabName) {
 
 function saveTransaction() {
     // 1. PEGAR OS ELEMENTOS
-    const statusEl = document.getElementById('input_status');
-    const descEl = document.getElementById('input_description');
-    const amountEl = document.getElementById('input_amount');
-    const dateEl = document.getElementById('input_due_date');
-    const flowEl = document.getElementById('input_flow');
-    const categoryEl = document.getElementById('input_category');
-
-    // Validação básica para garantir que os elementos existem
-    if (!descEl || !amountEl || !dateEl || !categoryEl || !flowEl) return;
-
-    // 2. PEGAR OS VALORES (Aqui estava o erro principal)
-    const description = descEl.value;
-    const amountVal = amountEl.value;
-    const dateValue = dateEl.value;
-    const status = statusEl.value;
-    const flow = flowEl.value;
-    const category = categoryEl.value;
+    const description = document.getElementById('input_description')?.value;
+    const amountVal = document.getElementById('input_amount')?.value;
+    const dateValue = document.getElementById('input_due_date')?.value;
+    const status = document.getElementById('input_status')?.value || 'Pendente';
+    const flow = document.getElementById('input_flow')?.value;
+    const category = document.getElementById('input_category')?.value;
     //revisar esta parte
     const isIncome = flow === "income";
 
@@ -148,8 +137,21 @@ function saveTransaction() {
         const reportsContainer = document.getElementById('reports_container');
         reportsContainer.insertAdjacentHTML('afterbegin', newTransactionHTML);
     }
-    descEl.value = '';
-    amountEl.value = '';
+    description.value = '';
+    amount.value = '';
+
+    // Segundo: Força a aba correta (Despesa ou Faturamento)
+    // O setTimeout dá um tempo para a tela carregar antes de clicar na aba
+    setTimeout(() => {
+        // Encontra o botão da aba baseado no tipo que acabamos de salvar
+        // type é 'income' ou 'expense'
+        const tabBtn = document.querySelector(`.tab_btn[onclick*="${type}"]`);
+
+        if (tabBtn) {
+            // Clica no botão para filtrar a lista e atualizar o saldo
+            switchTab(type, tabBtn);
+        }
+    }, 50); // 50ms de espera
 
     changeTab('reports');
 }
