@@ -93,7 +93,7 @@ body {
     width: 90%;
     margin: 1.5rem auto 1rem auto;
     display: flex;
-    flex-direction: column;
+    
     flex-wrap: wrap;
     justify-content: center;
 
@@ -112,11 +112,6 @@ body {
     gap: 0.8rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     flex: 1;
-}
-
-#pending_boxes{
-    display: flex;
-    justify-content: space-between;
 }
 
 .box_icon {
