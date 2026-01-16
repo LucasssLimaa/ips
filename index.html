@@ -29,7 +29,7 @@
                         d="M10.5 32C10.5 26.7533 14.7533 22.5 20 22.5C25.2467 22.5 29.5 26.7533 29.5 32V34H10.5V32Z" />
                 </g>
             </svg>
-            <H1>Escola IPS</H1>
+            <H1>Creche Rainha</H1>
             <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24" fill="none" stroke="#94a3b8"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -40,8 +40,8 @@
             <div id="value_boxes_container">
                 <div class="value_box">
                     <div class="box_icon total">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 10h12" />
                             <path d="M4 14h12" />
                             <path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" />
@@ -53,36 +53,35 @@
                     </div>
                 </div>
 
-                <div id="pending_boxes">
-                    <div class="value_box">
-                        <div class="box_icon payable">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
-                                <line x1="2" y1="10" x2="22" y2="10"></line>
-                                <rect x="6" y="14" width="3" height="2" rx="0.5"></rect>
-                            </svg>
-                        </div>
-                        <div class="box_info">
-                            <p class="label">Valor a Pagar:</p>
-                            <p class="total_cash" id="val_payable">€12.000,00</p>
-                        </div>
+                <div class="value_box">
+                    <div class="box_icon payable">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                            <rect x="6" y="14" width="3" height="2" rx="0.5"></rect>
+                        </svg>
                     </div>
-                    
-                    <div class="value_box">
-                        <div class="box_icon receivable">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                        </div>
-                        <div class="box_info">
-                            <p class="label">Valor a Receber:</p>
-                            <p class="total_cash" id="val_receivable">€12.000,00</p>
-                        </div>
+                    <div class="box_info">
+                        <p class="label">Valor a Pagar:</p>
+                        <p class="total_cash" id="val_payable">€12.000,00</p>
                     </div>
                 </div>
+
+                <div class="value_box">
+                    <div class="box_icon receivable">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="box_info">
+                        <p class="label">Valor a Receber:</p>
+                        <p class="total_cash" id="val_receivable">€12.000,00</p>
+                    </div>
+                </div>
+
             </div>
             <div id="screen_home">
                 <div id="balance_box_container">
@@ -132,13 +131,13 @@
                             <option value="expense">Despesa</option>
                         </select>
                     </div>
-                    <div class="input_box record_toggle">
+                    <!--div class="input_box record_toggle">
                         <p>Adicionar outro lançamento de seguida</p>
                         <label class="switch">
                             <input type="checkbox">
                             <span class="slider"></span>
                         </label>
-                    </div>
+                    </div-->
                     <button id="btn_save" onclick="saveTransaction()">Guardar</button>
                 </div>
             </div>
@@ -166,42 +165,17 @@
                     <div class="report_box box_paid" data-type="income">
                         <div class="box_header" onclick="toggleCard(this)">
                             <div class="box_column_left">
-                                <p class="text_primary">Mensalidade João da Silva</p>
-                                <p class="text_secondary">29 Dez, 10:30</p>
-                            </div>
-                        <div class="box_row_right">
-                            <div class="box_column_center">
-                                <p class="text_value">+ € 350.000,00</p>
-                            </div>
-                            <div class="box_column_right">
-                                <div class="badge status_paid">PAGO</div>
-                                <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div></div>
-                        <div class="box_body">
-                            <p><strong>Categoria:</strong> Propina</p>
-                            <div id="buttons_box">
-                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
-                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="report_box box_pending" data-type="expense">
-                        <div class="box_header" onclick="toggleCard(this)">
-                            <div class="box_column_left">
-                                <p class="text_primary">Mensalihdjsasva veifvhbqiaebvqiabeov ihadfbvuqebvdade João da Silva</p>
-                                <p class="text_secondary">29 Dez, 10:30</p>
+                                <p class="text_primary">Propina: Maria Santos</p>
+                                <p class="text_secondary">02 Jan</p>
                             </div>
                             <div class="box_row_right">
                                 <div class="box_column_center">
                                     <p class="text_value">+ € 350,00</p>
                                 </div>
                                 <div class="box_column_right">
-                                    <div class="badge status_pending">PENDENTE</div>
-                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <div class="badge status_paid">PAGO</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </div>
@@ -211,16 +185,124 @@
                             <p><strong>Categoria:</strong> Propina</p>
                             <div id="buttons_box">
                                 <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report_box box_paid" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Aluguel do Espaço</p>
+                                <p class="text_secondary">05 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">- € 850,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_paid">PAGO</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Instalações</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report_box box_paid" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Papel A4 e Canetas</p>
+                                <p class="text_secondary">08 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">- € 45,90</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_paid">PAGO</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Material</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report_box box_late" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Conta EDP Energia</p>
+                                <p class="text_secondary">10 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">- € 120,50</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_late">ATRASADO</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Contas</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
                                 <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
                             </div>
                         </div>
                     </div>
-
+                    
+                    <div class="report_box box_paid" data-type="income">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Venda Uniformes</p>
+                                <p class="text_secondary">12 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">+ € 180,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_paid">PAGO</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Vendas</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="report_box box_late" data-type="income">
                         <div class="box_header" onclick="toggleCard(this)">
                             <div class="box_column_left">
-                                <p class="text_primary">Mensalidade João da Silva</p>
-                                <p class="text_secondary">29 Dez, 10:30</p>
+                                <p class="text_primary">Propina: Pedro Silva</p>
+                                <p class="text_secondary">15 Jan</p>
                             </div>
                             <div class="box_row_right">
                                 <div class="box_column_center">
@@ -228,7 +310,8 @@
                                 </div>
                                 <div class="box_column_right">
                                     <div class="badge status_late">ATRASADO</div>
-                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </div>
@@ -242,6 +325,119 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="report_box box_pending" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Fatura NOS Internet</p>
+                                <p class="text_secondary">20 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">- € 65,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_pending">PENDENTE</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Contas</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report_box box_pending" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Reparo Ar Condicionado</p>
+                                <p class="text_secondary">22 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">- € 150,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_pending">PENDENTE</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Manutenção</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report_box box_pending" data-type="income">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Matrícula: Ana Costa</p>
+                                <p class="text_secondary">25 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">+ € 150,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_pending">PENDENTE</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Matrículas</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report_box box_pending" data-type="expense">
+                        <div class="box_header" onclick="toggleCard(this)">
+                            <div class="box_column_left">
+                                <p class="text_primary">Empresa de Limpeza</p>
+                                <p class="text_secondary">28 Jan</p>
+                            </div>
+                            <div class="box_row_right">
+                                <div class="box_column_center">
+                                    <p class="text_value">- € 200,00</p>
+                                </div>
+                                <div class="box_column_right">
+                                    <div class="badge status_pending">PENDENTE</div>
+                                    <svg class="arrow_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box_body">
+                            <p><strong>Categoria:</strong> Limpeza</p>
+                            <div id="buttons_box">
+                                <button class="btn_quick_delete" onclick="delete_card(this)">Deletar</button>
+                                <button class="btn_quick_pay" onclick="pay_card(this)">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -285,7 +481,7 @@
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <script src="script.js"></script>
     <script src="script.js"></script>
 </body>
