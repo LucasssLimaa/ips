@@ -22,7 +22,7 @@ function changeTab(tabName) {
     if (tabName === 'home') {
         backBtn.style.display = 'none';
         profileIcon.style.display = 'block';
-        headerTittle.innerText = 'Escola Rainha';
+        headerTittle.innerText = 'Creche Rainha';
     } else {
         backBtn.style.display = 'block';
         profileIcon.style.display = 'none';
@@ -69,24 +69,27 @@ function saveTransaction() {
     const displayAmount = symbol + amount.toFixed(2);
 
     // 4. DEFINIR CLASSES (Corrigido o switch e a variável)
+    // 4. DEFINIR CLASSES E STATUS
     let boxClass = "";
     let badgeClass = "";
-    let statusLabel = ""; 
+    let statusLabel = "";
 
-    if(userPaid) {
+    // PRIORIDADE 1: Está pago?
+    if (userPaid) {
         boxClass = "box_paid";
         badgeClass = "status_paid";
-        statusLabel = isIncome ? "RECEBIDO" : "PAGO"
-    } else {
-       if (itemDate < today) {
-            // Data é passado = Atrasado
+        statusLabel = "PAGO";
+    }
+    // PRIORIDADE 2: Não está pago
+    else {
+        if (itemDate < today) {
+            // Data antiga = ATRASADO (Vermelho)
             boxClass = "box_late";
             badgeClass = "status_late";
             statusLabel = "ATRASADO";
         } else {
-            // Data é futuro = Agendado
-            // Se for receita usa azul, despesa usa amarelo
-            boxClass = "box_pending"; 
+            // Data futura = PENDENTE (Amarelo) para tudo
+            boxClass = "box_pending";
             badgeClass = "status_pending";
             statusLabel = "PENDENTE";
         }
@@ -245,7 +248,9 @@ function updateTotals() {
     allItems.forEach(item => {
         // 1. Limpar valor
         const textVal = item.querySelector('.text_value').innerText;
-        let valor = parseFloat(textVal.replace(/[^\d,-]/g, '').replace(',', '.'));
+        let valorString = textVal.replace(/[^\d.,-]/g, '');
+        valorString = valorString.replace(',', '.');
+        let valor = parseFloat(valorString);
         valor = Math.abs(valor);
 
         // 2. Pegar Tipo e Texto
