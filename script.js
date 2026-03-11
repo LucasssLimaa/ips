@@ -65,8 +65,9 @@ function saveTransaction() {
     const itemDate = new Date(dateValue);
 
     // 3. DEFINIR O SINAL
+    // 3. DEFINIR O SINAL
     const symbol = isIncome ? "+ € " : "- € ";
-    const displayAmount = symbol + amount.toFixed(2);
+    const displayAmount = symbol + amount.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     // 4. DEFINIR CLASSES (Corrigido o switch e a variável)
     // 4. DEFINIR CLASSES E STATUS
@@ -248,7 +249,7 @@ function updateTotals() {
     allItems.forEach(item => {
         // 1. Limpar valor
         const textVal = item.querySelector('.text_value').innerText;
-        let valorString = textVal.replace(/[^\d.,-]/g, '');
+        let valorString = textVal.replace(/[^\d,-]/g, '');
         valorString = valorString.replace(',', '.');
         let valor = parseFloat(valorString);
         valor = Math.abs(valor);
